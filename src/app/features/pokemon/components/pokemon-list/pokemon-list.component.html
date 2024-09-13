@@ -1,1 +1,6 @@
-<p>pokemon-list works!</p>
+<ng-template let-item #template>
+  <td>{{item.name}}</td>
+  <td><button (click)="selectPokemon()" class="primary">click</button></td>
+</ng-template>
+
+<app-table caption="Pokemon list" [rows]="rows" [items]="($pokemons | async) || []" [itemTemplate]="template"></app-table>

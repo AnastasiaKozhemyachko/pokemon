@@ -1,0 +1,87 @@
+@import './colors.scss';
+@import './variables.scss';
+
+// Font families
+$font-family-sans-serif: 'Helvetica Neue', Arial, sans-serif;
+$font-family-serif: 'Georgia', 'Times New Roman', serif;
+$font-family-monospace: 'Courier New', Courier, monospace;
+
+// Font weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+// Line heights
+$line-height-normal: 1.5;
+$line-height-loose: 1.75;
+$line-height-tight: 1.25;
+
+// Text colors
+$text-color-primary: $primary-black;
+$text-color-secondary: $medium-gray;
+
+html {
+  font-size: 16px;
+  font-family: $font-family-sans-serif;
+  color: $text-color-primary;
+}
+
+// Headings
+h1, .h1 {
+  font-size: 2.5rem;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $text-color-primary;
+}
+
+h2, .h2 {
+  font-size: 2rem;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $text-color-primary;
+}
+
+h3, .h3 {
+  font-size: 1.75rem;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-normal;
+  color: $text-color-primary;
+}
+
+h4, .h4 {
+  font-size: 1.5rem;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-normal;
+  color: $text-color-primary;
+}
+
+h5, .h5 {
+  font-size: 1.25rem;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-normal;
+  color: $text-color-primary;
+}
+
+h6, .h6 {
+  font-size: 1rem;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-normal;
+  color: $text-color-primary;
+}
+
+// Paragraphs
+p {
+  font-size: $font-size-medium;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  color: $text-color-secondary;
+}
+
+// Links
+a {
+  color: $text-color-accent;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}

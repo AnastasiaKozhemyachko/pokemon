@@ -1,0 +1,19 @@
+<table>
+  @if (caption){
+    <caption>{{caption}}</caption>
+  }
+  <thead>
+  <tr>
+    @for (row of rows; track $index) {
+      <th>{{ row.name }}</th>
+    }
+  </tr>
+  </thead>
+  <tbody>
+    @for (item of items; track $index) {
+      <tr>
+        <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+      </tr>
+    }
+  </tbody>
+</table>

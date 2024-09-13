@@ -1,0 +1,61 @@
+@import './colors.scss';
+@import './typography.scss';
+
+button {
+  display: inline-block;
+  font-family: $font-family-sans-serif;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-normal;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 0.25rem 0.5rem; // Smaller padding
+  font-size: 0.875rem; // Smaller font size
+  border-radius: 0.5rem; // More rounded corners
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+
+  &.primary {
+    color: $primary-white;
+    background-color: $primary-blue;
+    border-color: $primary-blue;
+
+    &:hover {
+      background-color: darken($primary-blue, 10%);
+      border-color: darken($primary-blue, 10%);
+    }
+  }
+
+  &.secondary {
+    color: $primary-white;
+    background-color: $secondary-blue;
+    border-color: $secondary-blue;
+
+    &:hover {
+      background-color: darken($secondary-blue, 10%);
+      border-color: darken($secondary-blue, 10%);
+    }
+  }
+
+  &.success {
+    color: $primary-white;
+    background-color: $primary-green;
+    border-color: $primary-green;
+
+    &:hover {
+      background-color: darken($primary-green, 10%);
+      border-color: darken($primary-green, 10%);
+    }
+  }
+
+  &.danger {
+    color: $primary-white;
+    background-color: $primary-red;
+    border-color: $primary-red;
+
+    &:hover {
+      background-color: darken($primary-red, 10%);
+      border-color: darken($primary-red, 10%);
+    }
+  }
+}

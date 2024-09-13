@@ -1,0 +1,51 @@
+@import 'colors.scss';
+@import 'variables.scss';
+@import 'typography.scss';
+
+:host {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: $primary-white;
+  box-shadow: $box-shadow-light;
+  border-radius: $border-radius-large;
+  overflow: hidden;
+}
+
+caption {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  color: $text-color-primary;
+  padding: $spacing-medium;
+  text-align: left;
+}
+
+th, td {
+  padding: $spacing-small $spacing-medium;
+  text-align: left;
+  border-bottom: 1px solid $pastel-blue;
+}
+
+th {
+  background-color: lighten($pastel-blue, 40%);
+  color: $primary-black;
+  font-weight: $font-weight-bold;
+}
+
+td {
+  color: $text-color-secondary;
+}
+
+tr:nth-child(even) {
+  background-color: lighten($pastel-blue, 10%);
+}
+
+tr:hover {
+  background-color: $pastel-blue;
+  transition: background-color 0.3s ease;
+}

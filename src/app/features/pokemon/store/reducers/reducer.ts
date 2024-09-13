@@ -1,10 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import {loadPokemons, loadPokemonsFailure, loadPokemonsSuccess} from "../actions/actions";
-
-export interface IPokemon {
-  name: string;
-  url: string;
-}
+import {IPokemon} from "../../../../core/models/IPokemon";
 
 export interface PokemonState {
   items: IPokemon[];
