@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './pokemon-card.component.scss'
 })
 export class PokemonCardComponent {
+  private readonly location = inject(Location)
 
+  back() {
+    this.location.back();
+  }
 }
