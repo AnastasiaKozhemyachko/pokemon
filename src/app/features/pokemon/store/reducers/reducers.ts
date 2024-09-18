@@ -1,8 +1,6 @@
-import {
-  ActionsPokemonsUnion, loadPokemon, loadPokemonFailure,
-  loadPokemons, loadPokemonsFailure, loadPokemonsSuccess, loadPokemonSuccess,
-} from "../actions/actions";
+import {loadPokemon, loadPokemonFailure, loadPokemons, loadPokemonsFailure, loadPokemonsSuccess, loadPokemonSuccess,} from "../actions/actions";
 import {IPokemon} from "../../../../core/models/IPokemon";
+import {createReducer, on} from "@ngrx/store";
 
 export interface PokemonState {
   items: IPokemon[];
@@ -23,36 +21,30 @@ function getItems(action: { payload: IPokemon[] }, state: PokemonState): IPokemo
   });
 }
 
-export function reducers (state = initialState, action: ActionsPokemonsUnion): PokemonState {
-  switch (action.type) {
-    case loadPokemons.type: {
-      return {...state, loading: true};
-    }
-    case loadPokemonsSuccess.type: {
-      return {...state,  items: getItems(action, state), loading: false}
-    }
-    case loadPokemonsFailure.type: {
-      return {...state, error: action.error, loading: false}
-    }
-
-    case loadPokemon.type: {
-      return {...state, loading: true};
-    }
-
-    case loadPokemonSuccess.type: {
-      const existingItem = state.items.find(item => item.id === action.payload.id);
-      const updatedItems = existingItem
-        ? state.items.map(item => item.id === action.payload.id ? { ...item, ...action.payload } : item)
-        : [...state.items, action.payload];
-      return { ...state, items: updatedItems, loading: false };
-    }
-
-    case loadPokemonFailure.type: {
-      return {...state, error: action.error, loading: false}
-    }
-
-    default: {
-      return state;
-    }
-  }
-}
+export const reducers = createReducer(
+  initialState,
+  on(loadPokemons, state => ({ ...state, loading: true })),
+  on(loadPokemonsSuccess, (state, action) => ({
+    ...state,
+    items: getItems(action, state),
+    loading: false
+  })),
+  on(loadPokemonsFailure, (state, action) => ({
+    ...state,
+    error: action.error,
+    loading: false
+  })),
+  on(loadPokemon, state => ({ ...state, loading: true })),
+  on(loadPokemonSuccess, (state, action) => {
+    const existingItem = state.items.find(item => item.id === action.payload.id);
+    const updatedItems = existingItem
+      ? state.items.map(item => item.id === action.payload.id ? { ...item, ...action.payload } : item)
+      : [...state.items, action.payload];
+    return { ...state, items: updatedItems, loading: false };
+  }),
+  on(loadPokemonFailure, (state, action) => ({
+    ...state,
+    error: action.error,
+    loading: false
+  }))
+);
