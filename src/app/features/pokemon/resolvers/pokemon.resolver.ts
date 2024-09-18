@@ -6,7 +6,7 @@ import * as ActionsPokemon from "../store/actions/actions";
 export const pokemonResolver: ResolveFn<boolean> = (route, state) => {
   const id = route.paramMap.get('id');
   if (id) {
-    inject(Store).dispatch(ActionsPokemon.loadPokemon(+id));
+    inject(Store).dispatch(ActionsPokemon.loadPokemon({id: +id}));
   }
   return true;
 };

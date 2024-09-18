@@ -1,4 +1,4 @@
-export interface IPokemonAPI {
+export interface IPokemonApi {
   name: string;
   url: string;
 }

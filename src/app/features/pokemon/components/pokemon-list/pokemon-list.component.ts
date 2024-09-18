@@ -1,10 +1,10 @@
 import {Component, inject} from '@angular/core';
 import {AsyncPipe, JsonPipe} from "@angular/common";
 import {select, Store} from "@ngrx/store";
-import {selectAllPokemons, selectPokemonsEntities} from "../../store/selectors/selectors";
+import {selectAllPokemons, selectPokemon} from "../../store/selectors/selectors";
 import {TableComponent} from "../../../../shared/components/table/table.component";
 import {IRow} from "../../../../core/models/IRow";
-import {Router} from "@angular/router";
+import {navigateToPokemon} from "../../../../store/actions/routerActions";
 
 @Component({
   selector: 'app-pokemon-list',
@@ -19,12 +19,11 @@ import {Router} from "@angular/router";
 })
 export class PokemonListComponent {
   private readonly store = inject(Store);
-  private readonly router = inject(Router);
 
   readonly $pokemons = this.store.pipe(select(selectAllPokemons))
   readonly rows: IRow[] = [{name: 'Name', key: 'name'}, {name: '', key: ''}];
 
   selectPokemon(id: number) {
-    this.router.navigate(['/pokemon', id]);
+    this.store.dispatch(navigateToPokemon({ id }));
   }
 }

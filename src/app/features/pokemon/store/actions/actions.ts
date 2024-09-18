@@ -1,5 +1,5 @@
-import {createAction, union} from '@ngrx/store';
-import {IPokemon} from "../../../../core/models/IPokemon";
+import {createAction, props, union} from '@ngrx/store';
+import {IPokemonApi} from "../../../../core/models/IPokemonApi";
 
 // loadPokemons
 export const loadPokemons = createAction(
@@ -8,28 +8,28 @@ export const loadPokemons = createAction(
 
 export const loadPokemonsSuccess = createAction(
   '[Pokemons] Load Pokemons Success',
-  (payload: IPokemon[]) => ({payload})
+  props<{payload: IPokemonApi[]}>()
 );
 
 export const loadPokemonsFailure= createAction(
   '[Pokemons] Load Pokemons Failure',
-  (error: unknown) => ({error})
+  props<{error: unknown}>()
 );
 
 // loadPokemon
 export const loadPokemon = createAction(
   '[Pokemon] Pokemon Load',
-  (id: number) => ({id})
+  props<{id: number}>()
 );
 
 export const loadPokemonSuccess = createAction(
   '[Pokemon] Load Pokemon Success',
-  (payload: any) => ({payload})
+  props<{payload: any}>()
 );
 
 export const loadPokemonFailure= createAction(
   '[Pokemon] Load Pokemon Failure',
-  (error: unknown) => ({error})
+  props<{error: unknown}>()
 );
 
 const pokemonApiActions = union({

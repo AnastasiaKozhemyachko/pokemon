@@ -1,5 +1,6 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {PokemonState} from "../reducers/reducers";
+import {selectRouteParams} from "../../../../store/selectors/routeSelectors";
 
 export const selectPokemonState = createFeatureSelector<PokemonState>('pokemon');
 
@@ -17,3 +18,12 @@ export const selectPokemonById = (id: number) => createSelector(
   selectPokemonsEntities,
   (entities) => entities[id]
 );
+
+export const selectPokemon = createSelector(
+  selectPokemonsEntities,
+  selectRouteParams,
+  (entities, param) => {
+    return entities?.[param['id']];
+  }
+);
+
