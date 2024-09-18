@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {AsyncPipe, JsonPipe} from "@angular/common";
 import {select, Store} from "@ngrx/store";
-import {selectAllPokemons} from "../../store/selectors/selectors";
+import {selectAllPokemons, selectPokemonsEntities} from "../../store/selectors/selectors";
 import {TableComponent} from "../../../../shared/components/table/table.component";
 import {IRow} from "../../../../core/models/IRow";
 import {Router} from "@angular/router";
