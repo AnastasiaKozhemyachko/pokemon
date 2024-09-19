@@ -1,0 +1,60 @@
+@import '../../../../../styles/colors.scss';
+
+article {
+  border: 1px solid $primary-blue;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: $pastel-blue;
+  transition: transform 0.2s;
+
+  h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: $primary-blue;
+  }
+
+  button.primary {
+    float: right;
+  }
+
+  p {
+    font-size: 0.9em;
+    color: $text-color-secondary;
+    margin-bottom: 16px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    background-color: $pastel-yellow;
+    border: 1px solid $light-gray;
+    border-radius: 8px;
+    padding: 16px;
+
+    li {
+      background: $pastel-yellow;
+      border: 1px solid $secondary-yellow;
+      border-radius: 4px;
+      padding: 8px;
+      margin-bottom: 8px;
+      color: $primary-black;
+      transition: background-color 0.2s;
+
+    }
+  }
+
+  .sprites {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 16px;
+
+    img {
+      max-width: 100px;
+      height: auto;
+      border: 2px solid $primary-blue;
+      border-radius: 8px;
+    }
+  }
+}

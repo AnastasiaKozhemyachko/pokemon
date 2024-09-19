@@ -1,21 +1,22 @@
-<button (click)="back()">back</button>
-
 <article>
+  <button (click)="back()" class="primary">back</button>
+
   @if (pokemon$ | async; as pokemon) {
     <h2>{{ pokemon?.name }}</h2>
-
     <p>Sprites:</p>
 
-    @if (!imageStore.isLoading()) {
-      <div class="sprites">
-        <img [src]="imageStore.images().front" alt="{{ pokemon?.name }} front default">
-        <img [src]="imageStore.images().back" alt="{{ pokemon?.name }} back default">
-        <img [src]="imageStore.images().frontShiny" alt="{{ pokemon?.name }} front shiny">
-        <img [src]="imageStore.images().backShiny" alt="{{ pokemon?.name }} back shiny">
-      </div>
-    } @else {
-      <div>Loading...</div>
-    }
+    <div class="sprites">
+      @for(sprite of sprites; track $index) {
+        @if (pokemon?.sprites?.[sprite]) {
+          <img ngSrc="{{ pokemon?.sprites?.[sprite] }}"
+               priority
+               width="400"
+               height="400"
+               alt="{{ pokemon?.name }} {{ sprite.replace('_', ' ') }}"
+          >
+        }
+      }
+    </div>
 
     <p>Abilities:</p>
     <ul>

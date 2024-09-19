@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {Observable, of} from "rxjs";
+import {catchError, map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ export class ImageService {
 
   showImage(url: string): Observable<string> {
     return this.http.get(url, { responseType: 'blob' }).pipe(
-      map(blob => URL.createObjectURL(blob))
+      map(blob => URL.createObjectURL(blob)),
+      catchError(error => of(''))
     );
   }
 }

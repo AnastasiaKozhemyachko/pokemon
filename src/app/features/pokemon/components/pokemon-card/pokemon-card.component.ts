@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {AsyncPipe, JsonPipe, Location, NgOptimizedImage} from '@angular/common';
 import {Store} from "@ngrx/store";
 import {selectPokemon} from "../../store/selectors/selectors";
-import {ImageStore} from "../../store/signalsStore/images.store";
+import {IPokemonSprites} from "../../../../core/models/IPokemon";
 
 @Component({
   selector: 'app-pokemon-card',
@@ -12,14 +12,13 @@ import {ImageStore} from "../../store/signalsStore/images.store";
     JsonPipe,
     NgOptimizedImage
   ],
-  providers: [ImageStore],
   templateUrl: './pokemon-card.component.html',
   styleUrl: './pokemon-card.component.scss'
 })
 export class PokemonCardComponent {
   private readonly location = inject(Location);
   private readonly store = inject(Store);
-  protected readonly imageStore = inject(ImageStore);
+  readonly sprites: (keyof IPokemonSprites)[] = ['front_default', 'back_default', 'front_shiny', 'back_shiny'];
 
   pokemon$ = this.store.select(selectPokemon);
 

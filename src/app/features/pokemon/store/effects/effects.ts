@@ -23,7 +23,7 @@ export class PokemonsEffects {
     return this.actions$.pipe(
         ofType(loadPokemons),
         switchMap(() =>
-          this.httpClient.get<IPokemonsApi>(`${this.url}?limit=20`).pipe(
+          this.httpClient.get<IPokemonsApi>(`${this.url}?limit=50`).pipe(
             map(response => loadPokemonsSuccess({payload: response.results})),
             catchError(error => {
               return of(loadPokemonsFailure({error}));
