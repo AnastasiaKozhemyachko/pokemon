@@ -1,6 +1,8 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {PokemonState} from "../reducers/reducers";
 import {selectRouteParams} from "../../../../store/selectors/routeSelectors";
+import {Dictionary} from "@ngrx/entity";
+import {IPokemon} from "../../../../core/models/IPokemon";
 
 export const selectPokemonState = createFeatureSelector<PokemonState>('pokemon');
 
@@ -11,18 +13,18 @@ export const selectPokemonsEntities = createSelector(
 
 export const selectAllPokemons = createSelector(
   selectPokemonsEntities,
-  (entities) => Object.keys(entities).map(id => entities[parseInt(id, 10)])
+  (entities: Dictionary<IPokemon>) => Object.keys(entities).map(id => entities[parseInt(id, 10)])
 );
 
 export const selectPokemonById = (id: number) => createSelector(
   selectPokemonsEntities,
-  (entities) => entities[id]
+  (entities: Dictionary<IPokemon>) => entities[id]
 );
 
 export const selectPokemon = createSelector(
   selectPokemonsEntities,
   selectRouteParams,
-  (entities, param) => {
+  (entities: Dictionary<IPokemon>, param) => {
     return entities?.[param['id']];
   }
 );

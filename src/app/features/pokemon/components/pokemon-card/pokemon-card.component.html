@@ -1,3 +1,45 @@
-{{ (pokemon$ | async)?.name }}
-
 <button (click)="back()">back</button>
+
+<article>
+  @if (pokemon$ | async; as pokemon) {
+    <h2>{{ pokemon?.name }}</h2>
+
+    <p>Sprites:</p>
+
+    @if (!imageStore.isLoading()) {
+      <div class="sprites">
+        <img [src]="imageStore.images().front" alt="{{ pokemon?.name }} front default">
+        <img [src]="imageStore.images().back" alt="{{ pokemon?.name }} back default">
+        <img [src]="imageStore.images().frontShiny" alt="{{ pokemon?.name }} front shiny">
+        <img [src]="imageStore.images().backShiny" alt="{{ pokemon?.name }} back shiny">
+      </div>
+    } @else {
+      <div>Loading...</div>
+    }
+
+    <p>Abilities:</p>
+    <ul>
+      @for(ability of pokemon?.abilities; track $index) {
+        <li>{{ ability.ability.name }}</li>
+      }
+    </ul>
+    <p>Base experience: {{ pokemon?.base_experience }}</p>
+    <p>Height: {{ pokemon?.height }}</p>
+    <p>Is Default: {{ pokemon?.is_default }}</p>
+    <p>Order: {{ pokemon?.order }}</p>
+    <p>Weight: {{ pokemon?.weight }}</p>
+  }
+</article>
+
+<!--    <p>Game Indices: {{ pokemon?.game_indices | json }}</p>-->
+<!--    <p>Height: {{ pokemon?.height }}</p>-->
+<!--    <p>Held Items: {{ pokemon?.held_items | json }}</p>-->
+<!--    <p>Moves: {{ pokemon?.moves | json }}</p>-->
+<!--    <p>Order: {{ pokemon?.order }}</p>-->
+<!--    <p>Past Abilities: {{ pokemon?.past_abilities | json }}</p>-->
+<!--    <p>Past Types: {{ pokemon?.past_types | json }}</p>-->
+<!--    <p>Species: {{ pokemon?.species | json }}</p>-->
+<!--    <p>Sprites: {{ pokemon?.sprites | json }}</p>-->
+<!--    <p>Stats: {{ pokemon?.stats | json }}</p>-->
+<!--    <p>Types: {{ pokemon?.types | json }}</p>-->
+<!--    <p>Weight: {{ pokemon?.weight }}</p>-->
