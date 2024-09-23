@@ -1,6 +1,6 @@
 import {Component, Input, TemplateRef} from '@angular/core';
 import {NgTemplateOutlet} from "@angular/common";
-import {IRow} from "../../../core/models/IRow";
+import {IRow} from "../../../features/pokemon/models/IRow";
 
 @Component({
   selector: 'app-table',

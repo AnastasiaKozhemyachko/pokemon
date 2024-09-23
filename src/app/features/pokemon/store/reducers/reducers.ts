@@ -1,18 +1,22 @@
 import { createReducer, on } from '@ngrx/store';
 import { loadPokemon, loadPokemonFailure, loadPokemons, loadPokemonsFailure, loadPokemonsSuccess, loadPokemonSuccess } from '../actions/actions';
-import { IPokemon } from '../../../../core/models/IPokemon';
+import { IPokemon } from '../../models/IPokemon';
 import {createEntityAdapter, EntityAdapter, EntityState} from "@ngrx/entity";
+import {IPagination} from "../../../../core/models/IPagination";
+import {loadMorePokemon, setNewPagination} from "../actions/paginationActions";
 
 export const adapter: EntityAdapter<IPokemon> = createEntityAdapter<IPokemon>();
 
 export interface PokemonState extends EntityState<IPokemon> {
   loading: boolean;
   error: any;
+  pagination: IPagination;
 }
 
 export const initialState: PokemonState = adapter.getInitialState({
   loading: false,
-  error: null
+  error: null,
+  pagination: { limit: 40, offset: 0 }
 });
 
 export const reducers = createReducer(
@@ -27,7 +31,8 @@ export const reducers = createReducer(
       return { ...existingItem, ...item, id };
     });
 
-    return adapter.setAll(entities, { ...state, loading: false });
+    const existingEntities = Object.values(state.entities).filter((entity): entity is IPokemon => entity !== undefined);
+    return adapter.setAll([...existingEntities, ...entities], { ...state, loading: false, pagination: action.pagination });
   }),
   on(loadPokemonsFailure, (state, action) => ({
     ...state,
@@ -42,5 +47,7 @@ export const reducers = createReducer(
     ...state,
     error: action.error,
     loading: false
-  }))
+  })),
+  on(setNewPagination, (state, action) => ({ ...state, pagination: action.pagination })),
+  on(loadMorePokemon, state => ({ ...state, loading: true }))
 );

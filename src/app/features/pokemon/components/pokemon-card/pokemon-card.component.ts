@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {AsyncPipe, JsonPipe, Location, NgOptimizedImage} from '@angular/common';
 import {Store} from "@ngrx/store";
 import {selectPokemon} from "../../store/selectors/selectors";
-import {IPokemonSprites} from "../../../../core/models/IPokemon";
+import {IPokemonSprites} from "../../models/IPokemon";
 
 @Component({
   selector: 'app-pokemon-card',

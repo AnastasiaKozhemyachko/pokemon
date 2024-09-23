@@ -1,15 +1,16 @@
 import {inject, Injectable} from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {of} from 'rxjs';
+import {debounceTime, delay, of, take, takeUntil, tap} from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { IPokemonsApi } from "../../../../core/models/IPokemonsApi";
+import { IPokemonsApi } from "../../models/IPokemonsApi";
 import {ActionsPokemonsUnion, loadPokemons, loadPokemonsFailure, loadPokemonsSuccess, loadPokemon, loadPokemonFailure, loadPokemonSuccess} from "../actions/actions";
 import {Store} from "@ngrx/store";
-import {selectPokemonById} from "../selectors/selectors";
+import {selectPokemonById, selectPokemonPagination} from "../selectors/selectors";
 import { concatLatestFrom } from '@ngrx/operators';
-import {IPokemon} from "../../../../core/models/IPokemon";
-
+import {IPokemon} from "../../models/IPokemon";
+import {IPagination} from "../../../../core/models/IPagination";
+import {loadMorePokemon} from "../actions/paginationActions";
 
 @Injectable()
 export class PokemonsEffects {
@@ -21,18 +22,30 @@ export class PokemonsEffects {
 
   loadItems$ = createEffect(() => {
     return this.actions$.pipe(
-        ofType(loadPokemons),
-        switchMap(() =>
-          this.httpClient.get<IPokemonsApi>(`${this.url}?limit=50`).pipe(
-            map(response => loadPokemonsSuccess({payload: response.results})),
-            catchError(error => {
-              return of(loadPokemonsFailure({error}));
-            })
-          )
-        )
-      );
-    }
-  );
+      ofType(loadPokemons),
+      delay(1000),
+      concatLatestFrom(() => this.store.select(selectPokemonPagination)),
+      switchMap(([action, pagination]: [ReturnType<typeof loadPokemons>, IPagination]) => this.fetchPokemons(pagination))
+    );
+  });
+
+  loadMoreItems$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadMorePokemon),
+      concatLatestFrom(() => this.store.select(selectPokemonPagination)),
+      switchMap(([action, pagination]: [ReturnType<typeof loadMorePokemon>, IPagination]) => {
+        const newPagination = { limit: pagination.limit, offset: pagination.offset + pagination.limit };
+        return this.fetchPokemons(newPagination);
+      })
+    );
+  });
+
+  private fetchPokemons(pagination: IPagination) {
+    return this.httpClient.get<IPokemonsApi>(`${this.url}?limit=${pagination.limit}&offset=${pagination.offset}`).pipe(
+      map(response => loadPokemonsSuccess({payload: response.results, pagination})),
+      catchError(error => of(loadPokemonsFailure({error})))
+    );
+  }
 
   loadItem$ = createEffect(() =>
     this.actions$.pipe(

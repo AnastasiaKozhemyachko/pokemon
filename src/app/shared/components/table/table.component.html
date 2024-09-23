@@ -4,6 +4,7 @@
   }
   <thead>
   <tr>
+    <th></th>
     @for (row of rows; track $index) {
       <th>{{ row.name }}</th>
     }
@@ -12,6 +13,7 @@
   <tbody>
     @for (item of items; track $index) {
       <tr>
+        <td>{{ $index }}</td>
         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
       </tr>
     }

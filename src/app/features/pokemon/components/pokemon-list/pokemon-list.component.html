@@ -3,4 +3,10 @@
   <td><button (click)="selectPokemon(item.id)" class="primary">click</button></td>
 </ng-template>
 
-<app-table caption="Pokemon list" [rows]="rows" [items]="($pokemons | async) || []" [itemTemplate]="template"></app-table>
+<app-table caption="Pokemon list"
+           [rows]="rows" [items]="($pokemons | async) || []"
+           [itemTemplate]="template"
+           appEndScroll
+           (nearEnd)="getMoreItems()"
+           *appIsLoading="($loading | async) ?? false"
+></app-table>
